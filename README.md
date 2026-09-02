@@ -1,8 +1,8 @@
 # Контроль качества продукции: статистические отчёты
 
-Набор из пяти R Markdown-отчётов. По демонстрационным данным они проходят путь от сырых измерений до точности прогнозных оценок.
+Набор из пяти Jupyter-ноутбуков на R. По демонстрационным данным они проходят путь от сырых измерений до точности прогнозных оценок.
 
-Отчёты уже собраны в HTML — их можно открыть и показать без запуска R.
+Ячейки уже выполнены: таблицы и графики сохранены внутри `.ipynb`.
 
 ---
 
@@ -24,14 +24,14 @@
 ```text
 .
 ├── README.md
-├── 01_data_preparation.Rmd      диагностика сырых измерений
-├── 02_score_statistics.Rmd      корреляции и связи оценок
-├── 03_score_accuracy.Rmd        то же, но только точные оценки
-├── 04_score_regression.Rmd      регрессии и взаимодействия
-├── 05_score_reliability.Rmd     точность оценок
+├── 01_data_preparation.ipynb    диагностика сырых измерений
+├── 02_score_statistics.ipynb    корреляции и связи оценок
+├── 03_score_accuracy.ipynb      то же, но только точные оценки
+├── 04_score_regression.ipynb    регрессии и взаимодействия
+├── 05_score_reliability.ipynb   точность оценок
 ├── data/                        CSV и скрипт генерации
-├── reports/                     готовый HTML-вывод
-└── render_reports.R             пересборка всех отчётов
+├── execute_notebooks.R          повторный прогон всех ноутбуков
+└── tools/                       вспомогательные скрипты запуска
 ```
 
 Читать по номерам: `01` → `05`. Каждый файл начинается с блока **«О документе»**: источник данных, цель, короткий результат.
@@ -67,29 +67,15 @@
 
 ---
 
-## Готовый вывод
-
-После сборки HTML лежит в `reports/`:
-
-- [01_data_preparation.html](reports/01_data_preparation.html)
-- [02_score_statistics.html](reports/02_score_statistics.html)
-- [03_score_accuracy.html](reports/03_score_accuracy.html)
-- [04_score_regression.html](reports/04_score_regression.html)
-- [05_score_reliability.html](reports/05_score_reliability.html)
-
-В каждом отчёте оглавление слева, таблицы и графики уже встроены.
-
----
-
 ## Как пересобрать
 
-Нужны **R 4.x**, пакеты ниже и **pandoc** (достаточно pandoc из RStudio).
+Нужны **R 4.x**, пакеты ниже и **Python 3** (`json`).
 
 ```r
 install.packages(c(
   "dplyr", "tidyr", "ggplot2", "nortest", "e1071", "car", "MASS",
   "FSA", "nlme", "lmtest", "sandwich", "fixest", "glinternet",
-  "knitr", "rmarkdown"
+  "jsonlite", "evaluate", "base64enc"
 ))
 ```
 
@@ -97,10 +83,10 @@ install.packages(c(
 
 ```bash
 Rscript data/generate_data.R
-Rscript render_reports.R
+Rscript execute_notebooks.R
 ```
 
-Первая команда пишет CSV в `data/`. Вторая собирает HTML в `reports/`.
+Первая команда пишет CSV в `data/`. Вторая заново выполняет все ячейки и сохраняет вывод в ноутбуках.
 
 Демо-данные синтетические (`set.seed(42)`), чтобы репозиторий был самодостаточным. Скрипт генерации можно заменить своими выгрузками с теми же именами столбцов.
 
@@ -108,8 +94,7 @@ Rscript render_reports.R
 
 ## Единый стиль отчётов
 
-- YAML: дата, `html_document`, тема **flatly**, оглавление слева.
-- Чанки с кодом скрыты: в HTML виден результат, а не листинг.
+- Jupyter Notebook, ядро R.
 - Русские заголовки, английские имена переменных в обратных кавычках.
 - В начале каждого файла — паспорт отчёта, в конце — короткое заключение.
 

@@ -5,3 +5,5 @@
 *.Rproj
 *_cache/
 .Ruserdata
+*.outputs.json
+.ipynb_checkpoints/
