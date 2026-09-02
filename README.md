@@ -24,13 +24,28 @@
 ```text
 .
 ├── README.md
-├── 01_data_preparation.ipynb    диагностика сырых измерений
-├── 02_score_statistics.ipynb    корреляции и связи оценок
-├── 03_score_accuracy.ipynb      то же, но только точные оценки
-├── 04_score_regression.ipynb    регрессии и взаимодействия
-├── 05_score_reliability.ipynb   точность оценок
-├── data/                        CSV
-└── tools/                       генерация данных и запуск ноутбуков
+├── 01_data_preparation.ipynb         диагностика сырых измерений
+├── 02_score_statistics.ipynb         корреляции и связи оценок
+├── 03_score_accuracy.ipynb           то же, но только точные оценки
+├── 04_score_regression.ipynb         регрессии и взаимодействия
+├── 05_score_reliability.ipynb        точность оценок
+├── data/
+│   ├── metric_output.csv             измерения производительности
+│   ├── metric_related.csv            измерения сопутствующего выпуска
+│   ├── metric_frequency.csv          измерения частоты выпуска
+│   ├── metric_yield.csv              измерения выхода годного
+│   ├── metric_volume.csv             измерения объёма партии
+│   ├── metric_defect.csv             измерения доли брака
+│   ├── metric_averages.csv           средние измерения по item_id
+│   ├── scores.csv                    оценки, индексы, категории
+│   ├── scores_norm.csv               то же для регрессии
+│   ├── scores_accuracy.csv           оценки плюс точность rel_*
+│   └── registry.csv                  соответствие rec_id ↔ item_id
+└── tools/
+    ├── generate_data.R               синтетические CSV в data/
+    ├── execute_notebooks.R           прогон всех ноутбуков
+    ├── execute_one_notebook.R        выполнение одного ноутбука
+    └── merge_notebook_outputs.py     вшивка вывода в .ipynb
 ```
 
 Читать по номерам: `01` → `05`. Каждый файл начинается с блока **«О документе»**: источник данных, цель, короткий результат.
