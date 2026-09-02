@@ -29,9 +29,8 @@
 ├── 03_score_accuracy.ipynb      то же, но только точные оценки
 ├── 04_score_regression.ipynb    регрессии и взаимодействия
 ├── 05_score_reliability.ipynb   точность оценок
-├── data/                        CSV и скрипт генерации
-├── execute_notebooks.R          повторный прогон всех ноутбуков
-└── tools/                       вспомогательные скрипты запуска
+├── data/                        CSV
+└── tools/                       генерация данных и запуск ноутбуков
 ```
 
 Читать по номерам: `01` → `05`. Каждый файл начинается с блока **«О документе»**: источник данных, цель, короткий результат.
@@ -42,11 +41,11 @@
 
 | Файл | Вопрос | Данные | Методы |
 |---|---|---|---|
-| **01** Подготовка | Есть ли выбросы, неоднородная дисперсия, коллинеарность? | `metric_output.csv` | z-score, Андерсон–Дарлинг, Levene, VIF, Краскел–Уоллис, Данн, Дарбин–Уотсон |
-| **02** Оценки | Как связаны оценки, индексы и категории? | `scores.csv` | Кендалл, Шапиро–Уилк, ANOVA / Краскел–Уоллис |
-| **03** Точные оценки | Что остаётся, если `accuracy ≥ 0.8`? | `scores_accuracy.csv` | те же тесты на отфильтрованной выборке |
-| **04** Регрессия | Что двигает индексы? | `scores_norm.csv`, `metric_averages.csv` | линейная регрессия, центрирование, `glinternet` |
-| **05** Точность | От чего зависит надёжность оценки? | измерения + `scores_accuracy.csv` + `registry.csv` | гистограммы, boxplot, Манна–Уитни, регрессия по категориям |
+| [`01_data_preparation.ipynb`](01_data_preparation.ipynb) | Есть ли выбросы, неоднородная дисперсия, коллинеарность? | [`data/metric_output.csv`](data/metric_output.csv) | z-score, Андерсон–Дарлинг, Levene, VIF, Краскел–Уоллис, Данн, Дарбин–Уотсон |
+| [`02_score_statistics.ipynb`](02_score_statistics.ipynb) | Как связаны оценки, индексы и категории? | [`data/scores.csv`](data/scores.csv) | Кендалл, Шапиро–Уилк, ANOVA / Краскел–Уоллис |
+| [`03_score_accuracy.ipynb`](03_score_accuracy.ipynb) | Что остаётся, если `accuracy ≥ 0.8`? | [`data/scores_accuracy.csv`](data/scores_accuracy.csv) | те же тесты на отфильтрованной выборке |
+| [`04_score_regression.ipynb`](04_score_regression.ipynb) | Что двигает индексы? | [`data/scores_norm.csv`](data/scores_norm.csv), [`data/metric_averages.csv`](data/metric_averages.csv) | линейная регрессия, центрирование, `glinternet` |
+| [`05_score_reliability.ipynb`](05_score_reliability.ipynb) | От чего зависит надёжность оценки? | измерения + [`data/scores_accuracy.csv`](data/scores_accuracy.csv) + [`data/registry.csv`](data/registry.csv) | гистограммы, boxplot, Манна–Уитни, регрессия по категориям |
 
 ### Показатели
 
@@ -82,8 +81,8 @@ install.packages(c(
 Из корня репозитория:
 
 ```bash
-Rscript data/generate_data.R
-Rscript execute_notebooks.R
+Rscript tools/generate_data.R
+Rscript tools/execute_notebooks.R
 ```
 
 Первая команда пишет CSV в `data/`. Вторая заново выполняет все ячейки и сохраняет вывод в ноутбуках.

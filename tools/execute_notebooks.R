@@ -1,5 +1,5 @@
 # Execute all R notebooks in separate processes and merge outputs.
-# Usage from repo root: Rscript execute_notebooks.R
+# Usage from repo root: Rscript tools/execute_notebooks.R
 
 files <- c(
   "01_data_preparation.ipynb",
