@@ -6,7 +6,9 @@ files <- c(
   "02_score_statistics.ipynb",
   "03_score_accuracy.ipynb",
   "04_score_regression.ipynb",
-  "05_score_reliability.ipynb"
+  "05_score_reliability.ipynb",
+  "06_marker_panel.ipynb",
+  "07_process_environment.ipynb"
 )
 
 for (f in files) {
