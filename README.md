@@ -2,7 +2,7 @@
 
 Проект на **R**: семь Jupyter-ноутбуков. По демонстрационным данным они проходят путь от сырых измерений до точности прогнозных оценок, лабораторных панелей маркеров и средовых эффектов.
 
-Ячейки уже выполнены: таблицы и графики сохранены внутри `.ipynb`.
+Ячейки уже выполнены: таблицы и графики сохранены внутри `.ipynb`. Данные в `data/` синтетические.
 
 ---
 
@@ -26,7 +26,6 @@
 ```text
 .
 ├── README.md
-├── r_statistic_data_analyse.Rproj    проект R / RStudio
 ├── 01_data_preparation.ipynb         диагностика сырых измерений
 ├── 02_score_statistics.ipynb         корреляции и связи оценок
 ├── 03_score_accuracy.ipynb           то же, но только точные оценки
@@ -34,28 +33,7 @@
 ├── 05_score_reliability.ipynb        точность оценок
 ├── 06_marker_panel.ipynb             лабораторные панели маркеров
 ├── 07_process_environment.ipynb      кривые процесса и среда
-├── data/
-│   ├── metric_output.csv             измерения производительности
-│   ├── metric_related.csv            измерения сопутствующего выпуска
-│   ├── metric_frequency.csv          измерения частоты выпуска
-│   ├── metric_yield.csv              измерения выхода годного
-│   ├── metric_volume.csv             измерения объёма партии
-│   ├── metric_defect.csv             измерения доли брака
-│   ├── metric_averages.csv           средние измерения по item_id
-│   ├── scores.csv                    оценки, индексы, категории
-│   ├── scores_norm.csv               то же для регрессии
-│   ├── scores_accuracy.csv           оценки плюс точность rel_*
-│   ├── registry.csv                  соответствие rec_id ↔ item_id
-│   ├── lab_report_2020.csv … 2023    сырые лабораторные панели
-│   ├── marker_map.csv                канал и позиция маркера
-│   ├── process_curve.csv             mass от age по заводам и маркам
-│   ├── environment_raw.csv           сырая выгрузка среды
-│   └── process_events.csv            trait и средовые ковариаты
-└── tools/
-    ├── generate_data.R               синтетические CSV в data/
-    ├── execute_notebooks.R           прогон всех ноутбуков
-    ├── execute_one_notebook.R        выполнение одного ноутбука
-    └── merge_notebook_outputs.py     вшивка вывода в .ipynb
+└── data/                             синтетические CSV для отчётов
 ```
 
 Читать по номерам: `01` → `07`. Каждый файл начинается с блока **«О документе»**: источник данных, цель, короткий результат.
@@ -95,31 +73,6 @@
 | `temp`, `pressure`, `humidity` | средовые ковариаты события |
 
 Категории изделия: тип (`A` / `B`), год выпуска, серия, класс, площадка, марка, метод изготовления, сертификация.
-
----
-
-## Как пересобрать
-
-Нужны **R 4.x**, пакеты ниже и **Python 3** (`json`).
-
-```r
-install.packages(c(
-  "dplyr", "tidyr", "ggplot2", "nortest", "e1071", "car", "MASS",
-  "FSA", "nlme", "lmtest", "sandwich", "fixest", "glinternet",
-  "jsonlite", "evaluate", "base64enc", "stringr"
-))
-```
-
-Из корня репозитория:
-
-```bash
-Rscript tools/generate_data.R
-Rscript tools/execute_notebooks.R
-```
-
-Первая команда пишет CSV в `data/`. Вторая заново выполняет все ячейки и сохраняет вывод в ноутбуках.
-
-Демо-данные синтетические (`set.seed(42)`), чтобы репозиторий был самодостаточным. Скрипт генерации можно заменить своими выгрузками с теми же именами столбцов.
 
 ---
 

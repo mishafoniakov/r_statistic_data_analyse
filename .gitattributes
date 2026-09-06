@@ -1,2 +1,0 @@
-# GitHub Linguist: notebooks contain R, not generic Jupyter.
-*.ipynb linguist-language=R
